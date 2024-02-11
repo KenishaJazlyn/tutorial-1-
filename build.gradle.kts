@@ -8,6 +8,7 @@ plugins {
 	jacoco
 	id("org.springframework.boot") version "3.2.2"
 	id("io.spring.dependency-management") version "1.1.4"
+	id("org.sonarqube") version "4.4.1.3373"
 }
 
 group = "id.ac.ui.cs.advprog"
@@ -30,6 +31,13 @@ repositories {
 	mavenCentral()
 }
 
+sonar {
+    properties {
+        property("sonar.projectKey", "KenishaJazlyn_tutorial-1-")
+        property("sonar.organization", "kenishajazlyn")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
+}
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
