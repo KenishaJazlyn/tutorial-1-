@@ -43,14 +43,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteById(String productId){
-        Iterator<Product> productIterator = productRepository.findAll();
-        List<Product> allProduct = new ArrayList<>();
-        productIterator.forEachRemaining(allProduct::add);
-        for (Product product: allProduct) {
-            if (product.getProductId().equals(productId)) {
-                productRepository.delete(product);
-            }            
-        }
+       Product product = findById(productId);
+        productRepository.delete(product);
     }
     
     @Override

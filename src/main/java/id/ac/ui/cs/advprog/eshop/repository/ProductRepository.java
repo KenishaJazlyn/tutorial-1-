@@ -27,10 +27,12 @@ public class ProductRepository {
             if (product.getProductId().equals(updatedProduct.getProductId())) {
                 product.setProductName(updatedProduct.getProductName());
                 product.setProductQuantity(updatedProduct.getProductQuantity());
-                break;
             }
         }
     }
-
     
+    public List<Product> getProductData() {
+        return productData;
+    }
+  
 }

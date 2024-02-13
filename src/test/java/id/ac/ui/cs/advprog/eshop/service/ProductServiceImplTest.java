@@ -66,22 +66,11 @@ class ProductServiceImplTest {
 
         assertNotNull(result);
         assertEquals("a0f9de46-90b1-437d-a0bf-d0821dde9096", result.getProductId());
-    }
-     @Test
-    void whenFindByIdAndProductDoesNotExist() {
-        // Arrange
-        String nonExistentProductId = "non-existent-id";
-        when(productRepository.findAll()).thenReturn(Collections.emptyIterator());
 
-        // Act
-        Product result = productService.findById(nonExistentProductId);
-
-        // Assert
-        assertNull(result, "Expected findById to return null when product does not exist");
-        
-        // Verify that productRepository.findAll() was called
-        verify(productRepository).findAll();
+        result = productService.findById("non-existent-id");
+        assertNull(result);
     }
+    
     @Test
     void testDeleteProductById() {
         Product product = new Product();
