@@ -30,9 +30,6 @@ public class ProductRepository {
             }
         }
     }
-    
-    public List<Product> getProductData() {
-        return productData;
-    }
+  
   
 }

@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
@@ -59,16 +60,19 @@ class ProductServiceImplTest {
     @Test
     void testFindProductById() {
         Product product = new Product();
-        product.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        Product createProduct1 = productService.create(product);
         when(productRepository.findAll()).thenReturn(Arrays.asList(product).iterator());
 
-        Product result = productService.findById("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        Product result = productService.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
 
         assertNotNull(result);
-        assertEquals("a0f9de46-90b1-437d-a0bf-d0821dde9096", result.getProductId());
-
-        result = productService.findById("non-existent-id");
-        assertNull(result);
+        assertEquals("eb558e9f-1c39-460e-8860-71af6af63bd6", result.getProductId());
+        assertNotEquals("a0f9de46-90b1-437d-a0bf-d0821dde9096", result.getProductId());
+        Product testProduct2 = productService.findById("non-existent-id");
+        assertNull(testProduct2);
     }
     
     @Test
