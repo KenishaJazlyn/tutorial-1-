@@ -2,6 +2,7 @@ package id.ac.ui.cs.advprog.eshop.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 import id.ac.ui.cs.advprog.eshop.model.Product;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -65,7 +67,21 @@ class ProductServiceImplTest {
         assertNotNull(result);
         assertEquals("a0f9de46-90b1-437d-a0bf-d0821dde9096", result.getProductId());
     }
+     @Test
+    void whenFindByIdAndProductDoesNotExist() {
+        // Arrange
+        String nonExistentProductId = "non-existent-id";
+        when(productRepository.findAll()).thenReturn(Collections.emptyIterator());
 
+        // Act
+        Product result = productService.findById(nonExistentProductId);
+
+        // Assert
+        assertNull(result, "Expected findById to return null when product does not exist");
+        
+        // Verify that productRepository.findAll() was called
+        verify(productRepository).findAll();
+    }
     @Test
     void testDeleteProductById() {
         Product product = new Product();
