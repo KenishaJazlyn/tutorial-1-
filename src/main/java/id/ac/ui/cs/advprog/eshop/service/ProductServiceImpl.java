@@ -5,6 +5,7 @@ import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,11 +37,13 @@ public class ProductServiceImpl implements ProductService {
         for (Product product: allProduct) {
             if (product.getProductId().equals(productId)) {
                 return product;
+            } else {
+                continue;
             }            
         }
         return null;
     }
-
+    
     @Override
     public void deleteById(String productId){
        Product product = findById(productId);
