@@ -11,10 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 @RequestMapping("/product")
@@ -67,47 +63,47 @@ public class ProductController {
 
 @Controller
 @RequestMapping("/car")
-class CarController extends ProductController{
+class CarController extends ProductController {
     @Autowired
-    private CarServiceImpl carservice;
+    private CarServiceImpl carService;
 
     @GetMapping("/createCar")
-    public String createCarPage(Model model){
+    public String createCarPage(Model model) {
         Car car = new Car();
         model.addAttribute("car", car);
-        return "createCar";
-    } 
+        return "CreateCar";
+    }
 
     @PostMapping("/createCar")
-    public String createCarPost(@ModelAttribute Car car, Model model){
-        carservice.create(car);
-        return "redirect:listCar";
+    public String createCarPost(@ModelAttribute Car car, Model model) {
+        carService.create(car);
+        return "redirect:ListCar";
     }
 
     @GetMapping("/listCar")
-    public String carListPage(Model model){
-        List<Car> allCars = carservice.findAll();
+    public String carListPage(Model model) {
+        List<Car> allCars = carService.findAll();
         model.addAttribute("cars", allCars);
-        return "carList";
+        return "CarList";
     }
 
-    @GetMapping("/editCar/{carId}")
-    public String editCarPage(@PathVariable String carId, Model model){
-        Car car = carservice.findById(carId);
+    @GetMapping("/editcar/{carId}")
+    public String editCarPage(@PathVariable String carId, Model model) {
+        Car car = carService.findById(carId);
         model.addAttribute("car", car);
-        return "editCar";
+        return "EditCar";
     }
 
     @PostMapping("/editCar")
-    public String editCarPost(@ModelAttribute Car car, Model model){
-       System.out.println(car.getCarId());
-       carservice.update(car.getCarId(), car);
-        return "editCar";
+    public String editCarPost(@ModelAttribute Car car, Model model) {
+        System.out.println(car.getCarId());
+        carService.update(car.getCarId(), car);
+        return "redirect:ListCar";
     }
 
     @PostMapping("/deleteCar")
-    public String deleteCar(@RequestParam("carId") String carId){
-       carservice.deleteCarById(carId);
+    public String deleteCar(@RequestParam("carId") String carId) {
+        carService.deleteCarById(carId);
         return "redirect:listCar";
     }
 
