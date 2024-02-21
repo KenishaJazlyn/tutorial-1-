@@ -11,6 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/product")
@@ -60,6 +64,9 @@ public class ProductController {
 
 }
 
+
+@Controller
+@RequestMapping("/car")
 class CarController extends ProductController{
     @Autowired
     private CarServiceImpl carservice;
