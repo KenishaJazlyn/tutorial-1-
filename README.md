@@ -25,7 +25,6 @@ I have added more tests for Product Controller, Product Service, Home Page Contr
 Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)!
 Yes, i do think that my implementation has met the definition of Continuous Integration and Continuous Deployment. I have implemented testing tool such ad JUnit, OSSF Scorecard, and Sonarcloud for the CI,  and Koyeb for CD. By automatically running tests and quality checks with each commit, and ensuring that code is automatically deployed after passing these checks. 
 
-
 ## Module 3
 **Explain what principles you apply to your project!**
 I applied `Liskov Substitution Principle`, `Single Responsibility Principle` and `Dependency Inversion Principle`. 
@@ -42,3 +41,5 @@ I applied `Liskov Substitution Principle`, `Single Responsibility Principle` and
 **Explain the disadvantages of not applying SOLID principles to your project with examples.**
 Not applying the `SOLID principles` can lead to software that is hard to maintain, difficult to extend, and fragile in the face of changes, significantly increasing the technical debt and potentially leading to higher costs in the long term.
 
+
+https://eshop-kenishajazlyn.koyeb.app/
