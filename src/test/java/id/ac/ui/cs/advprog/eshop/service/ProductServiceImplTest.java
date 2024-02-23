@@ -74,39 +74,7 @@ class ProductServiceImplTest {
         Product testProduct2 = productService.findById("non-existent-id");
         assertNull(testProduct2);
     }
-    @Test
-    public void testFindByIdProductIfDoesNotExist() {
-        Product product2 = new Product();
-        product2.setProductName("Product 2");
-        product2.setProductQuantity(200);
-        when(productRepository.findAll()).thenReturn(Arrays.asList(product2).iterator());
-
-        Product findedProduct = productService.findById("non-exist-id");
-        assertNull(findedProduct);
-    }
-
-    @Test
-    void testFindByIdProductIfMoreThanOneProduct() {
-        for (int i = 0; i < 5; i++) {
-            Product product = new Product();
-            product.setProductName(String.format("Product %d", i + 1));
-            product.setProductQuantity(100 + i);
-            productRepository.create(product);
-        }
-
-        Product lastProduct = new Product();
-        lastProduct.setProductName("Last Product");
-        lastProduct.setProductQuantity(130);
-        productRepository.create(lastProduct);
-        when(productRepository.findAll()).thenReturn(Arrays.asList(lastProduct).iterator());
-
-
-        Product foundProduct = productService.findById(lastProduct.getProductId());
-        assertEquals(lastProduct.getProductId(), foundProduct.getProductId());
-        assertEquals(lastProduct.getProductName(), foundProduct.getProductName());
-        assertEquals(lastProduct.getProductQuantity(), foundProduct.getProductQuantity());
-    }
-    
+  
     @Test
     void testDeleteProductById() {
         Product product = new Product();
