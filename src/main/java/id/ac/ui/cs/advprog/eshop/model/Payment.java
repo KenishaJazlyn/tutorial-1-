@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -41,18 +42,17 @@ public class Payment {
     }
 
     public void setStatus(String status) {
-        String[] statusList = {"SUCCESS", "REJECTED"};
-        if (Arrays.stream(statusList).noneMatch(item -> item.equals(status))) {
-            throw new IllegalArgumentException();
-        } else {
+        if (PaymentStatus.contains(status)){
             this.status = status;
+        } else {
+            throw new IllegalArgumentException("Invalid Payment Status");
         }
     }
     public void setMethod(String method) {
         if (PaymentMethod.contains(method)) {
             this.method = method;
         } else {
-            throw new IllegalArgumentException("Invalid Payment Method");
+            throw new IllegalArgumentException("Invalid Payment ethod");
         }
     }
 
