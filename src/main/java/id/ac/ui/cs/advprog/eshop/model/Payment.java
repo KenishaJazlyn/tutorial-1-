@@ -52,7 +52,7 @@ public class Payment {
         if (PaymentMethod.contains(method)) {
             this.method = method;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid Payment Method");
         }
     }
 

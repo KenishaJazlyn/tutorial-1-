@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 
 class PaymentTest {
     private Map<String, String> paymentData ;
@@ -59,20 +60,30 @@ class PaymentTest {
         paymentData.clear();
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", "VOUCHER_CODE",  paymentData, order);
+            Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9",  PaymentMethod.VOUCHER.getValue(),  paymentData, order);
          });
     }
     @Test
     void testCreatePaymentWithNullOrder() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("e45d7d21-fd29-4533-a569-abbe0819579a",  "", paymentData, null);
+            Payment payment = new Payment("e45d7d21-fd29-4533-a569-abbe0819579a",  PaymentMethod.VOUCHER.getValue(), paymentData, null);
         });
     }
+    @Test 
+    void testCreatePaymentWithInvalidMethod(){
+        loadVoucherCodePaymentData();
+        paymentData.clear();
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", "INVALID",  paymentData, order);
+         });
+    }
+  
 
     @Test
     void testCreatePaymentWithValidOrder(){
         loadVoucherCodePaymentData();
-        Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc7", "VOUCHER_CODE", paymentData, order);
+        Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc7",  PaymentMethod.VOUCHER.getValue(), paymentData, order);
         assertSame(this.order, payment.getOrder());
         assertEquals("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", payment.getOrder().getId());
         assertEquals(1708560000L, payment.getOrder().getOrderTime());
@@ -80,14 +91,14 @@ class PaymentTest {
         assertEquals("WAITING_PAYMENT", payment.getOrder().getStatus());
 
         assertEquals("dbd4aff4-9a7f-4603-92c2-eaf529271cc7", payment.getId());
-        assertEquals("VOUCHER_CODE", payment.getMethod());
+        assertEquals( PaymentMethod.VOUCHER.getValue(), payment.getMethod());
         assertEquals(paymentData, payment.getPaymentData());
     }
 
     @Test
     void testCreateOrderSuccessStatus() {
         loadVoucherCodePaymentData();
-        Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", "VOUCHER_CODE", paymentData, order, "SUCCESS");
+        Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9",  PaymentMethod.VOUCHER.getValue(), paymentData, order, "SUCCESS");
         assertEquals("SUCCESS", payment.getStatus());
     }
 
@@ -95,14 +106,14 @@ class PaymentTest {
     void testCreateOrderInvalidStatus() {
         loadVoucherCodePaymentData();
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", "VOUCHER_CODE", paymentData, order, "HEHEHEHinvalidMIN");
+            Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9",  PaymentMethod.VOUCHER.getValue(), paymentData, order, "HEHEHEHinvalidMIN");
         });
     }
 
     @Test
     void testSetStatusToCancelled() {
         loadVoucherCodePaymentData();
-        Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", "VOUCHER_CODE", paymentData, order, "SUCCESS"); 
+        Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9",  PaymentMethod.VOUCHER.getValue(), paymentData, order, "SUCCESS"); 
         payment.setStatus("REJECTED");
         assertEquals("REJECTED", payment.getStatus());
     }
@@ -110,7 +121,7 @@ class PaymentTest {
     @Test
     void testSetStatusToInvalidStatus() {
         loadVoucherCodePaymentData();
-        Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", "VOUCHER_CODE", paymentData, order, "SUCCESS");
+        Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", PaymentMethod.VOUCHER.getValue(), paymentData, order, "SUCCESS");
         assertThrows(IllegalArgumentException.class, () -> {
             payment.setStatus("HEHEHEHEinvalidMIN");
         });
