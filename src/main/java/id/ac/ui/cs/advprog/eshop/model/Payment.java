@@ -9,7 +9,7 @@ import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Builder;
 import lombok.Getter;
 
-@Builder
+
 @Getter
 public class Payment {
     String id;
@@ -34,11 +34,6 @@ public class Payment {
         } else {
             this.order = order;
         }
-    }
-
-    public Payment(String id, String method, Map<String, String> paymentData, Order order, String status){
-        this(id, method, paymentData, order);
-        this.setStatus(status);
     }
 
     public void setStatus(String status) {
