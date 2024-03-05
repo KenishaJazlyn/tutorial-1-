@@ -62,9 +62,15 @@ class PaymentTest {
             Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", "VOUCHER_CODE",  paymentData, order);
          });
     }
+    @Test
+    void testCreatePaymentWithNullOrder() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Payment payment = new Payment("e45d7d21-fd29-4533-a569-abbe0819579a",  "", paymentData, null);
+        });
+    }
 
     @Test
-    void testCreatePaymentWithDefaultStatus(){
+    void testCreatePaymentWithValidOrder(){
         loadVoucherCodePaymentData();
         Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc7", "VOUCHER_CODE", paymentData, order);
         assertSame(this.order, payment.getOrder());
@@ -109,5 +115,6 @@ class PaymentTest {
             payment.setStatus("HEHEHEHEinvalidMIN");
         });
     }
+    
 }
 
