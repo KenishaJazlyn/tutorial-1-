@@ -30,22 +30,13 @@ public class PaymentServiceImpl implements PaymentService{
     
     @Override
     public Payment setStatus(Payment payment, String status){
-        if(!status.equals("SUCCESS") && !status.equals("REJECTED")){
-            throw new IllegalArgumentException("Invalid payment status");
-        }
+        validatePaymentStatus(status);
         Payment paymentX = paymentRepository.findById(payment.getId());
         if (paymentX != null) {
             Payment newPayment = new Payment(payment.getId(), payment.getMethod(), payment.getPaymentData(), payment.getOrder());
             newPayment.setStatus(status);
-            if(newPayment.getStatus().equals("SUCCESS")){
-                orderRepository.findById(payment.getId()).setStatus("SUCCESS");
-            }
-            else if(newPayment.getStatus().equals("REJECTED")){
-                orderRepository.findById(payment.getId()).setStatus("FAILED");
-            }
-            else{
-                throw new IllegalArgumentException("Invalid payment status");
-            }
+            String orderId = payment.getOrder().getId();
+            changeOrderStatus(orderId, status);
             paymentRepository.save(newPayment);
             return newPayment;
         } else {
@@ -53,6 +44,21 @@ public class PaymentServiceImpl implements PaymentService{
         }
     };
 
+    private void validatePaymentStatus(String status) {
+        if (!status.equals("SUCCESS") && !status.equals("REJECTED")) {
+            throw new IllegalArgumentException("Invalid payment status");
+        }
+    }
+
+    private void changeOrderStatus(String id, String status){
+        if(status.equals("SUCCESS")){
+            orderRepository.findById(id).setStatus("SUCCESS");
+        }
+        else if(status.equals("REJECTED")){
+            orderRepository.findById(id).setStatus("FAILED");
+        }
+    }
+    
     @Override
     public Payment getPayment(String paymentId){
         return paymentRepository.findById(paymentId);
