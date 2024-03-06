@@ -2,11 +2,7 @@ package id.ac.ui.cs.advprog.eshop.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.expression.MapAccessor;
 
-import com.github.dockerjava.api.model.Repository;
-
-import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
