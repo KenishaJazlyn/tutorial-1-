@@ -51,7 +51,7 @@ class PaymentTest {
     }
 
     void loadVoucherCodePaymentData() {  
-        paymentData.put("voucherCode", "ESHOP1234ABC5678ABC");
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
     }
 
     @Test 
@@ -65,6 +65,7 @@ class PaymentTest {
     }
     @Test
     void testCreatePaymentWithNullOrder() {
+        loadVoucherCodePaymentData();
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("e45d7d21-fd29-4533-a569-abbe0819579a",  PaymentMethod.VOUCHER.getValue(), paymentData, null);
         });
@@ -80,8 +81,25 @@ class PaymentTest {
     }
 
     @Test
-    void testCreatePaymentWithValidOrder(){
+    void testCreatePaymentWithBankMethod(){
         loadVoucherCodePaymentData();
+        loadBankTransferPaymentData();
+        Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc7",  PaymentMethod.BANK.getValue(), paymentData, order);
+        assertSame(this.order, payment.getOrder());
+        assertEquals("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", payment.getOrder().getId());
+        assertEquals(1708560000L, payment.getOrder().getOrderTime());
+        assertEquals("Safira Sudrajat", payment.getOrder().getAuthor());
+        assertEquals("WAITING_PAYMENT", payment.getOrder().getStatus());
+
+        assertEquals("dbd4aff4-9a7f-4603-92c2-eaf529271cc7", payment.getId());
+        assertEquals( PaymentMethod.BANK.getValue(), payment.getMethod());
+        assertEquals(paymentData, payment.getPaymentData());
+    } 
+
+    @Test
+    void testCreatePaymentWithVoucherMethod(){
+        loadVoucherCodePaymentData();
+        loadBankTransferPaymentData();
         Payment payment = new Payment("dbd4aff4-9a7f-4603-92c2-eaf529271cc7",  PaymentMethod.VOUCHER.getValue(), paymentData, order);
         assertSame(this.order, payment.getOrder());
         assertEquals("dbd4aff4-9a7f-4603-92c2-eaf529271cc9", payment.getOrder().getId());
@@ -92,8 +110,6 @@ class PaymentTest {
         assertEquals("dbd4aff4-9a7f-4603-92c2-eaf529271cc7", payment.getId());
         assertEquals( PaymentMethod.VOUCHER.getValue(), payment.getMethod());
         assertEquals(paymentData, payment.getPaymentData());
-    }
-
-
+    } 
 }
 
