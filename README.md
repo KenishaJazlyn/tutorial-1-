@@ -1,5 +1,5 @@
 ## Module 1
-
+https://eshop-kenishajazlyn.koyeb.app/
 ### Reflection 1
 
 **You already implemented two new features using Spring Boot. Check again your source code and evaluate the coding standards that you have learned in this module. Write clean code principles and secure coding practices that have been applied to your code.  If you find any mistake in your source code, please explain how to improve your code.** 
@@ -42,4 +42,11 @@ I applied `Liskov Substitution Principle`, `Single Responsibility Principle` and
 Not applying the `SOLID principles` can lead to software that is hard to maintain, difficult to extend, and fragile in the face of changes, significantly increasing the technical debt and potentially leading to higher costs in the long term.
 
 
-https://eshop-kenishajazlyn.koyeb.app/
+# Module 4
+
+**Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.**
+    I think the TDD approach very helpful. The core premise of TDD is to write tests before writing the code that passes those tests, which is intended to increase software quality and ensure that the software behaves as expected. While TDD might initially seem to slow down development due to the extra time spent writing tests, the payoff should be in reduced debugging and maintenance time.
+
+
+**You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.**
+    Yes, My tests are Fast, ensuring it don't slow down development. They're Independent, each test can run alone without affecting others. They're Repeatable across any environment, Self-validating with clear pass or fail outcomes, and Timely, developed alongside the code they test.
