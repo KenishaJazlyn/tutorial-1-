@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class PaymentRepository {
-
     private List<Payment> paymentData = new ArrayList<>();
 
     public Payment save(Payment payment){
@@ -29,10 +28,18 @@ public class PaymentRepository {
 
     public Payment findById(String id) {
         for (Payment savedPayment : paymentData) {
-            if (savedPayment.getId().equals(id)) {
+            if (isIdEqual(savedPayment.getId(), id)) {
                 return savedPayment;
             }
         }
         return null;
+    }
+
+    public Boolean isIdEqual(String id1, String id2){
+        if (id1.equals(id2)){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
